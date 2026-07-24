@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}New post - Instagram Clone{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>New post</h1>
+    <form method="post" enctype="multipart/form-data">
+        <label for="image">Photo</label>
+        <input id="image" name="image" type="file" accept="image/png,image/jpeg,image/gif,image/webp" required>
+        <label for="caption">Caption</label>
+        <textarea id="caption" name="caption" maxlength="2200" placeholder="Write a caption..."></textarea>
+        <p class="hint">PNG, JPG, GIF, or WebP - up to 8 MB</p>
+        <button type="submit">Share</button>
+    </form>
+</section>
+<style>h1 { margin-top: 0; } .hint { color: #737373; font-size: 13px; }</style>
+{% endblock %}

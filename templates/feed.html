@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Feed - Instagram Clone{% endblock %}
+{% block content %}
+    <h1 class="welcome">Welcome {{ current_user.username }}</h1>
+    {% if stories %}
+    <section class="story-strip" aria-label="Active stories">
+        {% for story in stories %}<a class="story-chip" href="{{ url_for('stories') }}"><img src="{{ url_for('static', filename='uploads/' + story.image_filename) }}" alt="{{ story.user.username }}'s story"><span>{{ story.user.username }}</span></a>{% endfor %}
+    </section>
+    {% endif %}
+    {% for post in posts %}
+    <article class="post">
+        <div class="post-header"><a href="{{ url_for('profile') }}">{{ post.user.username }}</a></div>
+        <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" alt="Post by {{ post.user.username }}">
+        {% if post.caption %}<p class="caption"><strong>{{ post.user.username }}</strong> {{ post.caption }}</p>{% endif %}
+        {% set details = reaction_data[post.id] %}
+        <form class="reactions" method="post" action="{{ url_for('react_to_post', post_id=post.id) }}">
+            <button class="reaction {% if details.mine == 'like' %}selected{% endif %}" name="reaction_type" value="like" type="submit">&#128077; Like{% if details.counts.get('like') %} {{ details.counts.get('like') }}{% endif %}</button>
+            <button class="reaction {% if details.mine == 'love' %}selected{% endif %}" name="reaction_type" value="love" type="submit">&#10084; Love{% if details.counts.get('love') %} {{ details.counts.get('love') }}{% endif %}</button>
+        </form>
+        <time datetime="{{ post.created_at.isoformat() }}">{{ post.created_at.strftime('%b %d, %Y') }}</time>
+    </article>
+    {% else %}
+    <section class="card empty"><h1>Your feed is empty</h1><p>Share the first photo.</p><a href="{{ url_for('create_post') }}">Create a post</a></section>
+    {% endfor %}
+    <style>
+        .welcome { margin: 0 0 18px; font-size: 22px; }
+        .story-strip { display:flex; gap:12px; overflow-x:auto; padding:12px; margin-bottom:20px; border:1px solid #dbdbdb; border-radius:6px; background:#fff; } .story-chip { min-width:68px; color:#262626; font-size:12px; text-align:center; } .story-chip img { width:56px; height:56px; display:block; margin:auto; border:3px solid #e1306c; border-radius:50%; object-fit:cover; }
+        .post { margin-bottom: 20px; overflow: hidden; border: 1px solid #dbdbdb; border-radius: 6px; background: #fff; }
+        .post-header, .caption, time { display: block; padding: 12px 16px; }
+        .post img { display: block; width: 100%; max-height: 720px; object-fit: contain; background: #f2f2f2; }
+        .caption { margin: 0; padding-bottom: 4px; line-height: 1.4; }
+        time { padding-top: 4px; font-size: 12px; color: #737373; }
+        .empty { text-align: center; } .empty h1 { margin-top: 0; }
+        .reactions { padding: 8px 12px 0; display: flex; gap: 8px; } .reaction { background: #f5f5f5; color: #333; padding: 7px 10px; } .reaction.selected { background: #ffe8ed; color: #d6295d; }
+    </style>
+{% endblock %}

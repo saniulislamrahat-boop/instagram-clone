@@ -1,82 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            font-family: Arial, sans-serif;
-            background: #fafafa;
-            color: #262626;
-        }
-
-        .login-box {
-            width: min(100% - 32px, 360px);
-            padding: 32px;
-            border: 1px solid #dbdbdb;
-            border-radius: 4px;
-            background: #fff;
-        }
-
-        h1 {
-            margin: 0 0 24px;
-            text-align: center;
-            font-size: 28px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 14px;
-            padding: 10px;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            font-size: 14px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px 14px;
-            border: 0;
-            border-radius: 4px;
-            background: #0095f6;
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1877f2;
-        }
-
-        .signup-link {
-            margin: 18px 0 0;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        a {
-            color: #0095f6;
-            font-weight: 700;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <main class="login-box">
+{% extends "base.html" %}
+{% block title %}Login - Instagram Clone{% endblock %}
+{% block content %}
+    <section class="auth card">
         <h1>Login</h1>
 
         <form method="post" action="{{ url_for('login') }}">
@@ -93,6 +18,6 @@
             Don't have an account?
             <a href="{{ url_for('register') }}">Register</a>
         </p>
-    </main>
-</body>
-</html>
+    </section>
+    <style>.auth { width: min(100%, 420px); margin: 12vh auto; } .auth h1, .signup-link { text-align: center; } .auth h1 { margin-top: 0; } .signup-link { margin-bottom: 0; }</style>
+{% endblock %}

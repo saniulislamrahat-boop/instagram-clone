@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}People - Instagram Clone{% endblock %}
+{% block content %}
+<section class="card"><h1>People</h1><p>Follow creators or send friend requests.</p>
+{% for user in users %}<div class="person"><span>{% if user.profile_image_filename %}<img src="{{ url_for('static', filename='uploads/' + user.profile_image_filename) }}" alt="">{% endif %}<strong>{{ user.username }}</strong></span><div><form method="post" action="{{ url_for('toggle_follow', user_id=user.id) }}"><button type="submit">{% if user.id in followed_ids %}Following{% else %}Follow{% endif %}</button></form><form method="post" action="{{ url_for('friend_request', user_id=user.id) }}"><button type="submit" class="secondary">{% if friend_status[user.id] == 'friends' %}Friends{% elif friend_status[user.id] == 'received' %}Accept request{% elif friend_status[user.id] == 'sent' %}Cancel request{% else %}Add friend{% endif %}</button></form></div></div>{% else %}<p>No other users yet.</p>{% endfor %}</section>
+<style>h1{margin-top:0}.person{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid #eee}.person span{display:flex;align-items:center;gap:9px}.person img{width:32px;height:32px;border-radius:50%;object-fit:cover}.person div{display:flex;gap:6px}.person form{margin:0}.person button{padding:7px 9px}.secondary{background:#777}</style>
+{% endblock %}

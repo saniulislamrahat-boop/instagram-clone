@@ -1,88 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            font-family: Arial, sans-serif;
-            background: #fafafa;
-            color: #262626;
-        }
-
-        .register-box {
-            width: min(100% - 32px, 360px);
-            padding: 32px;
-            border: 1px solid #dbdbdb;
-            border-radius: 4px;
-            background: #fff;
-        }
-
-        h1 {
-            margin: 0 0 24px;
-            text-align: center;
-            font-size: 28px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 14px;
-            padding: 10px;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            font-size: 14px;
-        }
-
-        .message {
-            margin-bottom: 16px;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .error {
-            background: #fff1f1;
-            color: #b00020;
-        }
-
-        .success {
-            background: #edf8f0;
-            color: #18703a;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px 14px;
-            border: 0;
-            border-radius: 4px;
-            background: #0095f6;
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1877f2;
-        }
-    </style>
-</head>
-<body>
-    <main class="register-box">
+{% extends "base.html" %}
+{% block title %}Register - Instagram Clone{% endblock %}
+{% block content %}
+    <section class="auth card">
         <h1>Create account</h1>
 
         {% if error %}
@@ -105,6 +24,7 @@
 
             <button type="submit">Register</button>
         </form>
-    </main>
-</body>
-</html>
+        <p class="signup-link">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </section>
+    <style>.auth { width: min(100%, 420px); margin: 12vh auto; } .auth h1, .signup-link { text-align: center; } .auth h1 { margin-top: 0; } .signup-link { margin-bottom: 0; }</style>
+{% endblock %}

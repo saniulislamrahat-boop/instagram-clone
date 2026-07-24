@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Instagram Clone{% endblock %}</title>
+    <style>
+        :root { color-scheme: light; font-family: Arial, sans-serif; color: #262626; background: #fafafa; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #fafafa; }
+        nav { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(20px, calc((100vw - 935px) / 2)); background: #fff; border-bottom: 1px solid #dbdbdb; }
+        .brand { color: #262626; font-size: 22px; font-weight: 700; text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 16px; }
+        a { color: #0095f6; font-weight: 700; text-decoration: none; }
+        main { width: min(100% - 32px, 620px); margin: 32px auto; }
+        .card { padding: 24px; border: 1px solid #dbdbdb; border-radius: 6px; background: #fff; }
+        .message { margin: 0 0 16px; padding: 10px 12px; border-radius: 4px; }
+        .error { color: #b00020; background: #fff1f1; }
+        .success { color: #18703a; background: #edf8f0; }
+        label { display: block; margin: 14px 0 6px; font-size: 14px; font-weight: 700; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #dbdbdb; border-radius: 4px; font: inherit; }
+        textarea { min-height: 90px; resize: vertical; }
+        button { padding: 10px 16px; border: 0; border-radius: 4px; background: #0095f6; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+        button:hover { background: #1877f2; }
+        @media (max-width: 520px) { nav { padding: 0 16px; } main { margin: 16px auto; } .nav-links { gap: 10px; } }
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <nav>
+        <a class="brand" href="{{ url_for('feed') }}">Instagram</a>
+        <div class="nav-links">
+            <a href="{{ url_for('create_post') }}">New post</a>
+            <a href="{{ url_for('stories') }}">Stories</a>
+            <a href="{{ url_for('people') }}">People</a>
+            <a href="{{ url_for('messages') }}">Messages</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+    <main>
+        {% if error %}<div class="message error">{{ error }}</div>{% endif %}
+        {% if success %}<div class="message success">{{ success }}</div>{% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
